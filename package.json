@@ -1,0 +1,18 @@
+{
+  "name": "blockchain-notary-service",
+  "version": "0.0.0",
+  "description": "Blockchain-Notary-service",
+  "main": "server.js",
+  "author": {
+    "name": "Elbaruni"
+  },
+  "dependencies": {
+    "bitcoinjs-lib": "^4.0.1",
+    "bitcoinjs-message": "^2.0.0",
+    "body-parser": "^1.18.3",
+    "crypto-js": "^3.1.9-1",
+    "express": "^4.16.3",
+    "express-session": "^1.15.6",
+    "level": "^4.0.0"
+  }
+}
