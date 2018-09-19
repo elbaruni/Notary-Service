@@ -1,4 +1,4 @@
-﻿//RESTful APIs   Frameworks
+//RESTful APIs   Frameworks
 const express = require('express');
 // Router to handle endpoints
 const router = express.Router();
@@ -6,7 +6,10 @@ const session = require('express-session');
 const Private_BlockChain = require('../classes/private-blockchain');// importing private_blockchain  and block classes
 const Validation_Request_db = require('../classes/Validation-db');// importing validation-db and validationrequest classes
 
-
+// function to check if a given string contains only ascii charecters
+function isASCII(str) {
+    return /^[\x00-\x7F]*$/.test(str);
+}
 
  //post request to add new Block to the Blockchain
 router.post('/', async (req, res, next) => {
@@ -74,10 +77,13 @@ router.post('/', async (req, res, next) => {
                     }
                         //else "exist"  add it to star body object
                         BodyStar.dec = starObj.dec;
-                        // then  length of story  must not less than or equal 0  or greater than 250   
-                        if (storyLenght <= 0 || storyLenght > 250) {
+                         // then  length of story  must not less than or equal 0  or greater than 500   
+                        if (storyLenght <= 0 || storyLenght > 500) {
                             //if not add an error
                             err.push({ error: 'story not exist or lenght exceeds 250 words' }); console.log('story not exist');
+                        }
+                        if (!isASCII(starObj.story)) { // if not contains only ascii characters add an error
+                            err.push({ error: 'story not only ascii characters' }); console.log('story not only ascii characters'); 
                         }
                        //optional magnitude if exist add it
                         if (starObj.mag) { // if exist add it to star body object
@@ -116,6 +122,9 @@ router.post('/', async (req, res, next) => {
                         //adding new block to the blockchain with the body object
                         let block = await chain.addBlock(new Private_BlockChain.Block(BodyObj));
 
+                        //delete validation request  from validation-db after success adding
+                        let del = validation_db.DeleteValidationRequest(Address);
+                        
                         //returning added block
                         res.status(201).json(JSON.parse(block));
                         
@@ -166,7 +175,7 @@ router.get('/:BlockHeight', async (req, res, next) => {
 
     // object to build the block body
     let BodyObj = {};
-
+    if (blockHeight > 0) {
      //object to build star body
     let BodyStar = {};
     BodyStar = block.body.star;
@@ -178,7 +187,7 @@ router.get('/:BlockHeight', async (req, res, next) => {
 
    //applying star body object with decoded story to the found block
     block.body.star = BodyStar;
-
+     }
     // return found block
     res.status(200).json(block);
       

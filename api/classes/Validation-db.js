@@ -1,4 +1,4 @@
-﻿/* ===== Leveldb ===========================================
+/* ===== Leveldb ===========================================
 |  Learn more: level: https://github.com/Level/level        |
 |  =========================================================*/
 const level = require('level');
@@ -66,7 +66,9 @@ class Validationdb{
 
 
     //====================start of Class Methods====================================
-    async ValidationRequest(Address) {
+    async ValidationRequest(Address) {  /* this method used to generate new validation request if the requesting address not exist or the validation window expired, 
+    and if exist  returns the validation request
+    */
         try {
 
             let ex = await this.IsExist(Address); // check if request address is exist 
