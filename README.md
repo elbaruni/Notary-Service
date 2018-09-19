@@ -43,11 +43,11 @@
        response is in JSON format  contains a meesage to be signed ,wallet address ,request timestamp,validation window
        ```
          {
-       "address": "1LFZtQVeBtKfV3u9YAKvbVMfCH7oSoXgQj",
-      "requestTimeStamp": 1537277998808,
-      "message": "1LFZtQVeBtKfV3u9YAKvbVMfCH7oSoXgQj:1537277998808:starRegistry",
-      "validationWindow": 300  }
-      ```
+          "address": "1LFZtQVeBtKfV3u9YAKvbVMfCH7oSoXgQj",
+          "requestTimeStamp": 1537277998808,
+          "message": "1LFZtQVeBtKfV3u9YAKvbVMfCH7oSoXgQj:1537277998808:starRegistry",
+          "validationWindow": 300  }
+       ```
    - message-signature.js is the routes endpoint  to handle validating users message signature
      - /validate post endpoint will receive wallet address and signature in JSON format 
         {"address":"1LFZtQVeBtKfV3u9YAKvbVMfCH7oSoXgQj", "signature": "IAdbnXWajS1C3DYG93o6JzpgMqrtduN4mX8uk0ejbnH29dihst7Hy5+kukinvckG4lrw+nXyX7XdwO1VRiCOVuk=="}
