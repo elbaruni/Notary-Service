@@ -1,4 +1,4 @@
-﻿//RESTful APIs   Frameworks
+//RESTful APIs   Frameworks
 const express = require('express');
 // Router to handle endpoints
 const router = express.Router();
@@ -18,7 +18,7 @@ router.post('/', async (req, res, next) => {
         const address = req.body.address; 
          
         let Address = address;
-
+        if (Address) {
 
         // creating validation-db instance
         const validation_db = new Validation_Request_db.Validationdb();
@@ -47,7 +47,10 @@ router.post('/', async (req, res, next) => {
          
            
             
-          
+         } else {
+            res.status(500).json({ error: "Address not exist,please re-submit with an addrees" });
+        } 
+ 
 
         } 
     catch (err) {
