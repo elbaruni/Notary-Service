@@ -1,4 +1,4 @@
-﻿//RESTful APIs   Frameworks
+//RESTful APIs   Frameworks
 const express = require('express');
 // Router to handle endpoints
 const router = express.Router();
@@ -12,7 +12,7 @@ const Validation_Request_db = require('../classes/Validation-db');// importing v
 
 
 //Get request to look up a start by the wallet address
-router.get('/address/:address', async (req, res, next) => {
+router.get('/address::address', async (req, res, next) => {
     // boday parser to get the address
     const address = req.params.address;
     try {
@@ -59,7 +59,7 @@ router.get('/address/:address', async (req, res, next) => {
 
 
 //Get request to look up a start by the block hash
-router.get('/hash/:hash', async (req, res, next) => {
+router.get('/hash::hash', async (req, res, next) => {
     // body parser to get hash parameter
     const hash = req.params.hash;
     try {
