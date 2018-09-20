@@ -164,15 +164,19 @@ router.post('/', async (req, res, next) => {
 
 // Get request to look up a start by the block height
 router.get('/:BlockHeight', async (req, res, next) => {
-    // extracts blockheight from request parameters
-    const blockHeight = req.params.BlockHeight;
+
+
+     
+    try {
+        // extracts blockheight from request parameters
+        const blockHeight =parseInt(req.params.BlockHeight,10);
 
      //first we create an instance of blockchain class
     let chain = new Private_BlockChain.Blockchain();
 
      //calling getBlockmethod of blockchain and gets the block  of blockheight
     let block = await chain.getBlock(blockHeight);
-
+     if (block) {
     // object to build the block body
     let BodyObj = {};
     if (blockHeight > 0) {
@@ -188,8 +192,18 @@ router.get('/:BlockHeight', async (req, res, next) => {
    //applying star body object with decoded story to the found block
     block.body.star = BodyStar;
      }
+      res.status(200).json(block);
+     }
+     
+    else {
+        //console.log(err);
+        res.status(500).json({ error: ` Height ${blockHeight} is not exist` }); }
+
     // return found block
-    res.status(200).json(block);
+    
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ error: err.message });  }
       
 });
 
